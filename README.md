@@ -20,7 +20,8 @@
 <h3>[설명]</h3>
 1. 데이터베이스는 개인적으로 사용하는 우분투 기반 DB 서버로 연동했습니다.<br>
 2. "경기도 의정부시 문충로 74" 주소의 x,y 값은 현재 공공 API에서 제공하지 않아, "의정부시 의정부1동"의 x,y 값으로 임시 대체했습니다.<br>
-![xy](https://github.com/gksmf4721/bigs-test/assets/112394346/3d634b41-f1a2-4050-a892-b50b37be7638)
+![xy](https://github.com/gksmf4721/bigs-test/assets/112394346/168207bf-8b39-40f6-b839-f30ce232d2c2)
+
 
 <br><br>
 
