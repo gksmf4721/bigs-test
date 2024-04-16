@@ -28,7 +28,6 @@ subprojects{
 	apply(plugin = "org.springframework.boot")
 	apply(plugin = "io.spring.dependency-management")
 	apply(plugin = "org.jetbrains.kotlin.plugin.spring")
-	//apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
 	apply(plugin = "kotlin")
 	apply(plugin = "kotlin-kapt")
 
@@ -40,12 +39,10 @@ subprojects{
 		runtimeOnly("com.h2database:h2")
 		runtimeOnly("com.mysql:mysql-connector-j")
 		testImplementation("org.springframework.boot:spring-boot-starter-test")
-		testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3")
 		compileOnly("org.projectlombok:lombok")
 
 		implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 		implementation ("com.googlecode.json-simple:json-simple:1.1.1")
-		implementation("org.apache.httpcomponents:httpclient:4.5.13")
 		implementation("org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16")
 	}
 }

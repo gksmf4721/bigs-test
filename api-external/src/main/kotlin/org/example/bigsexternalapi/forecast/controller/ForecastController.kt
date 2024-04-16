@@ -17,6 +17,11 @@ class ForecastController {
     @Autowired
     private lateinit var forecastService : ForecastService
 
+    /**
+     * 공공 API 조회
+     * @param requestBody
+     * @return ResponseEntity<RestResponse.RestResultResponse>
+     */
     @Throws(UnsupportedOperationException::class)
     @PostMapping("/forecast")
     fun getForecast(@RequestBody requestBody: ForecastVO.RequestForecastVO)
@@ -25,7 +30,7 @@ class ForecastController {
         val result = forecastService.setForecast(requestBody)
 
         return ResponseEntity.ok(
-            RestResponse.RestResultResponse(result?.get("resultCode"), result?.get("resultMsg")))
+            RestResponse.RestResultResponse(result["resultCode"], result["resultMsg"]))
     }
 
 }

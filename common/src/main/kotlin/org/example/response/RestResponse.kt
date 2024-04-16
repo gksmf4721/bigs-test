@@ -9,6 +9,10 @@ import java.time.LocalDateTime
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class RestResponse<T> {
 
+    constructor(data: T) {
+        this.data = data
+    }
+
     // 결과 코드
     @JsonProperty("resultCode")
     private var resultCode: String = "00"
@@ -22,25 +26,22 @@ class RestResponse<T> {
     @JsonProperty("items")
     private var data: T? = null
 
-    constructor(data: T) {
-        this.data = data
-    }
-
     class RestResultResponse {
+
+        constructor(resultCode: String?, resultMsg: String?) {
+            this.resultCode = resultCode
+            this.resultMsg = resultMsg
+        }
 
         @JsonProperty("resultCode")
         private var resultCode: String? = "00"
-
-        @JsonProperty("resultMessage")
-        private var resultMessage: String? = "";
 
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         @JsonFormat(shape = JsonFormat.Shape.STRING, timezone = "Asia/Seoul", pattern = "yyyy-MM-dd HH:mm:ss")
         private var resultDate: LocalDateTime = LocalDateTime.now()
 
-        constructor(resultCode: String?, resultMessage: String?) {
-            this.resultCode = resultCode
-            this.resultMessage = resultMessage
-        }
+        @JsonProperty("resultMsg")
+        private var resultMsg: String? = "";
+
     }
 }

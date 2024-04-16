@@ -1,6 +1,5 @@
 package org.example.bigsexternalapi.forecast.service
 
-
 import org.example.domain.entity.ForecastEntity
 import org.example.domain.vo.ForecastVO
 import org.example.repository.ForecastRepository
@@ -37,30 +36,47 @@ class ForecastService {
 
 
     @Throws(UnsupportedOperationException::class)
-    fun setForecast(request: ForecastVO.RequestForecastVO): Map<String, String>? {
+    fun setForecast(forecastVO: ForecastVO.RequestForecastVO): Map<String, String?> {
 
         val restTemplate = RestTemplate();
         val httpHeaders = HttpHeaders();
-        httpHeaders.contentType = MediaType("application", "json", Charset.forName("UTF-8"))
 
-        val date = getDate();
-        val getUri = getUri(request.pageNo, request.numOfRows, request.dateType, date)
+        // Content-Type 헤더 설정
+        httpHeaders.contentType = MediaType(
+            "application",
+            "json",
+            Charset.forName("UTF-8")
+        )
 
-        // 공공 API 가져오기
-        val response: Map<String, Any>? = restTemplate.getForObject(getUri, Map::class.java) as Map<String, Any>?
-        val items = (response?.get("response") as? Map<String, Any>)?.get("body") as? Map<String, Any>?
-        val itemList = items?.get("items") as? Map<String, Any>?
-        var item = itemList?.get("item") as? List<Map<String, Object>>
+        // 현재 날짜, 시각, 요청 Url
+        val dateTime = getDateTime();
+        val getUri = getUri(
+            forecastVO.pageNo,
+            forecastVO.numOfRows,
+            forecastVO.dateType,
+            dateTime
+        )
 
-        // Entity 삽입
-        item?.let { insertForecast(item) }
+        // 공공 API 조회
+        val result: Map<String, Any>? = restTemplate.getForObject(getUri, Map::class.java) as Map<String, Any>
+        val response = result?.get("response") as? Map<String, Any>?
+
+        // header, body 분리
+        val header = response?.get("header") as? Map<String, String>?
+        val body = response?.get("body") as? Map<String, Any>?
+
+        // Entity 데이터 DB 삽입
+        body?.let { insertForecast(body) }
 
         // resultCode, resultMsg 반환
-        return (response?.get("response") as? Map<String, Any>)?.get("header") as? Map<String, String>?
+        return mapOf(
+            "resultCode" to header?.get("resultCode"),
+            "resultMsg" to header?.get("resultMsg")
+        )
     }
 
     // URI 반환
-    fun getUri(pageNo: Int, numOfRows: Int, dataType: String, date: Map<String,String>): URI {
+    fun getUri(pageNo: Int, numOfRows: Int, dataType: String, date: Map<String, String>): URI {
 
         val serviceKey = URLEncoder.encode(decodeServiceKey,"UTF-8")
 
@@ -78,7 +94,7 @@ class ForecastService {
     }
 
     // 날짜, 시각 반환
-    fun getDate(): Map<String, String> {
+    fun getDateTime(): Map<String, String> {
 
         val currentDate = LocalDateTime.now()
         val dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
@@ -91,16 +107,19 @@ class ForecastService {
     }
 
     // Jpa Save
-    fun insertForecast(item : List<Map<String,Object>>) {
+    fun insertForecast(body : Map<String, Any>) {
+
+        val items = body?.get("items") as? Map<String, Any>?
+        val item = items?.get("item") as? List<Map<String, Any>>?
 
         val forecastEntities = item?.map { item ->
             ForecastEntity(
-                baseDate =  item["baseDate"] as? String,
-                baseTime =  item["baseTime"] as? String,
-                category =  item["category"] as? String,
-                nx =        item["nx"] as? Int,
-                ny =        item["ny"] as? Int,
-                obsrValue = item["obsrValue"] as? String
+                baseDate =  item["baseDate"] as String,
+                baseTime =  item["baseTime"] as String,
+                category =  item["category"] as String,
+                nx =        item["nx"] as Int,
+                ny =        item["ny"] as Int,
+                obsrValue = item["obsrValue"] as String
             )
         } ?: emptyList()
         forecastRepository.saveAll(forecastEntities);

@@ -1,6 +1,5 @@
 package org.example.bigsinnerapi.inner.service
 
-import org.example.domain.entity.ForecastEntity
 import org.example.domain.vo.ForecastVO
 import org.example.repository.ForecastRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +13,9 @@ class InnerService {
 
     fun getForecastList(): List<ForecastVO.ResponseForecastVO> {
 
-        return ForecastVO.ResponseForecastVO().toResponseOf(forecastRepository.findAll());
+        val result = forecastRepository.findAll();
+
+        return ForecastVO.ResponseForecastVO().toResponseOf(result);
     }
 
 }
