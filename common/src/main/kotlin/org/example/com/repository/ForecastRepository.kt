@@ -1,6 +1,6 @@
-package org.example.repository
+package org.example.com.repository
 
-import org.example.domain.entity.ForecastEntity
+import org.example.com.domain.entity.ForecastEntity
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

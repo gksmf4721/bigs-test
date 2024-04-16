@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
 @EnableJpaAuditing
-@EnableJpaRepositories(basePackages = ["org.example.repository"])
-@EntityScan(basePackages = ["org.example.domain.entity"])
+@EnableJpaRepositories(basePackages = ["org.example.com.repository"])
+@EntityScan(basePackages = ["org.example.com.domain.entity"])
 @ComponentScan(basePackages = ["org.example.**.**"])
 class BigsExternalApiApplication
 

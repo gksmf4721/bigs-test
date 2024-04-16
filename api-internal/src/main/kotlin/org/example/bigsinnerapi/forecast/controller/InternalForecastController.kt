@@ -1,7 +1,7 @@
-package org.example.bigsinnerapi.inner.controller
+package org.example.bigsinnerapi.forecast.controller
 
-import org.example.bigsinnerapi.inner.service.InnerService
-import org.example.response.RestResponse
+import org.example.bigsinnerapi.forecast.service.InternalForecastService
+import org.example.com.response.RestResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1")
-class InnerController {
+class InternalForecastController {
 
     @Autowired
-    private lateinit var innerService: InnerService
+    private lateinit var internalForecastService: InternalForecastService
 
     /**
      * DB 적재 예보 조회
@@ -22,7 +22,7 @@ class InnerController {
     @GetMapping("/select")
     fun getForecast(): ResponseEntity<out Any> {
 
-        val response = innerService.getForecastList()
+        val response = internalForecastService.getForecastList()
 
         return if (response.isNotEmpty()) {
             ResponseEntity.ok(RestResponse(response))

@@ -1,4 +1,4 @@
-package org.example.response
+package org.example.com.response
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonInclude

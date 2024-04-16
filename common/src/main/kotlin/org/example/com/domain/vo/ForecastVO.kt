@@ -1,7 +1,7 @@
-package org.example.domain.vo
+package org.example.com.domain.vo
 
 import lombok.*
-import org.example.domain.entity.ForecastEntity
+import org.example.com.domain.entity.ForecastEntity
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

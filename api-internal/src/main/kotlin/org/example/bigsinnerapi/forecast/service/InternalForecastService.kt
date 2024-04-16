@@ -1,12 +1,12 @@
-package org.example.bigsinnerapi.inner.service
+package org.example.bigsinnerapi.forecast.service
 
-import org.example.domain.vo.ForecastVO
-import org.example.repository.ForecastRepository
+import org.example.com.domain.vo.ForecastVO
+import org.example.com.repository.ForecastRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class InnerService {
+class InternalForecastService {
 
     @Autowired
     private lateinit var forecastRepository: ForecastRepository

@@ -1,8 +1,8 @@
 package org.example.bigsexternalapi.forecast.service
 
-import org.example.domain.entity.ForecastEntity
-import org.example.domain.vo.ForecastVO
-import org.example.repository.ForecastRepository
+import org.example.com.domain.entity.ForecastEntity
+import org.example.com.domain.vo.ForecastVO
+import org.example.com.repository.ForecastRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
@@ -17,7 +17,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Service
-class ForecastService {
+class ExternalForecastService {
 
     @Autowired
     private lateinit var forecastRepository: ForecastRepository
