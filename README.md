@@ -1,4 +1,4 @@
-<h1><b>Bigs-Test</b></h1>
+<h1><b>Kotiln Multi Module Project</b></h1>
 
 <hr>
 <br>
